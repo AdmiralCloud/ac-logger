@@ -1,20 +1,20 @@
 {
   "name": "ac-logger",
-  "author": "Mark Poepping (https://www.mmpro.de)",
+  "author": "Mark Poepping (https://www.admiralcloud.com)",
   "license": "MIT",
-  "repository": "mmpro/ac-logger",
+  "repository": "admiralcloud/ac-logger",
   "version": "1.1.2",
   "dependencies": {
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "winston": "^3.2.1"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "ac-semantic-release": "^0.2.5",
-    "eslint": "^7.19.0",
-    "expect": "^26.6.2",
-    "mocha": "^8.2.1",
-    "mocha-jenkins-reporter": "^0.4.5"
+    "ac-semantic-release": "^0.2.6",
+    "eslint": "^7.32.0",
+    "expect": "^27.2.5",
+    "mocha": "^9.1.2",
+    "mocha-jenkins-reporter": "^0.4.7"
   },
   "scripts": {
     "test": "mocha --reporter spec",
