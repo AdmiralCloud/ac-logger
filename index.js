@@ -91,6 +91,11 @@ module.exports = (config) => {
     acLogger[level](message)
   }
 
+  const hrLine = (params) => {
+    const length = _.get(params, 'headLength', headLength)
+    acLogger.info(_.repeat('-', length))
+  }
+
   const bootstrapInfo = (params) => {
     const pwd = process.cwd()
     const pjson = require(path.resolve(pwd, 'package.json'))
@@ -98,7 +103,7 @@ module.exports = (config) => {
     const appName = _.get(params, 'appName', 'App name missing')
     const padLength = 15
     acLogger.info('')
-    acLogger.info(_.repeat('-', headLength))
+    hrLine()
     listing({ field: 'Time', value: moment().format('YYYY-MM-DD HH:mm:ss'), padLength })
     listing({ field: 'Environment', value: environment, padLength })
     listing({ field: 'Version', value: pjson.version, padLength })
@@ -106,7 +111,7 @@ module.exports = (config) => {
     acLogger.info('')
     listing({ field: 'BOOTSTRAPPING', value:  '\x1b[32mSuccessful\x1b[0m', padLength })   
     acLogger.info(_.repeat('-', headLength))
-    acLogger.info('')
+    hrLine()
   }
 
   /**
@@ -154,6 +159,7 @@ module.exports = (config) => {
     bootstrapInfo,
     serverInfo,
     acSESnfo,
-    timeEnd
+    timeEnd,
+    hrLine
   }
 }
