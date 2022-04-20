@@ -1,3 +1,16 @@
+<a name="1.3.0"></a>
+ 
+# [1.3.0](https://github.com/admiralcloud/ac-logger/compare/v1.2.1..v1.3.0) (2022-04-20 11:46:13)
+
+
+### Feature
+
+* **Misc:** Add hrLine separator based on HTML tag hr | VD | [d5fffbbcac366d6cb1b326e261c7de35f2803243](https://github.com/admiralcloud/ac-logger/commit/d5fffbbcac366d6cb1b326e261c7de35f2803243)    
+Add hrLine separator based on HTML tag hr
+### Chores
+
+* **release:** v1.2.0 [ci skip] | [207c29b2f41cebe905abf2634ab51c722a559d16](https://github.com/admiralcloud/ac-logger/commit/207c29b2f41cebe905abf2634ab51c722a559d16)    
+
 <a name="1.2.1"></a>
 
 ## [1.2.1](https://github.com/admiralcloud/ac-logger/compare/v1.2.0..v1.2.1) (2022-04-20 11:44:27)
