@@ -1,3 +1,13 @@
+<a name="1.3.2"></a>
+
+## [1.3.2](https://github.com/admiralcloud/ac-logger/compare/v1.3.1..v1.3.2) (2023-02-02 19:04:00)
+
+
+### Bug Fix
+
+* **App:** Package updates | MP | [383bc3bfd04db7ee696bf1dabb80b64ee8c55ca9](https://github.com/admiralcloud/ac-logger/commit/383bc3bfd04db7ee696bf1dabb80b64ee8c55ca9)    
+Package updates  
+Related issues: [undefined/undefined#master](undefined/browse/master)
 <a name="1.3.1"></a>
 
 ## [1.3.1](https://github.com/admiralcloud/ac-logger/compare/v1.3.0..v1.3.1) (2022-07-09 08:12:15)
