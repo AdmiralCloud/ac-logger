@@ -3,6 +3,8 @@ Unified logging function for all backend applications of AdmiralCloud. Use it in
 
 The purpose of the little app is to make sure that all applications use the same log format/notations.
 
+[![Node.js CI](https://github.com/AdmiralCloud/ac-logger/actions/workflows/node.js.yml/badge.svg)](https://github.com/AdmiralCloud/ac-logger/actions/workflows/node.js.yml)
+
 ## Usage
 Use it like Winston!
 
@@ -81,8 +83,7 @@ TBC
 
 ## Links
 - [Website](https://www.admiralcloud.com/)
-- [Twitter (@admiralcloud)](https://twitter.com/admiralcloud)
 - [Facebook](https://www.facebook.com/MediaAssetManagement/)
 
 ## License
-[MIT License](https://opensource.org/licenses/MIT) Copyright © 2009-present, AdmiralCloud, Mark Poepping
+[MIT License](https://opensource.org/licenses/MIT) Copyright © 2009-present, AdmiralCloud AG, Mark Poepping

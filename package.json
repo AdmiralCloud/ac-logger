@@ -10,10 +10,11 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "ac-semantic-release": "^0.3.4",
-    "eslint": "^8.33.0",
-    "expect": "^27.5.1",
-    "mocha": "^9.2.2",
+    "ac-semantic-release": "^0.3.5",
+    "chai": "^4.3.7",
+    "eslint": "^8.35.0",
+    "intercept-stdout": "^0.1.2",
+    "mocha": "^10.2.0",
     "mocha-jenkins-reporter": "^0.4.8"
   },
   "scripts": {
@@ -21,6 +22,6 @@
     "test-jenkins": "JUNIT_REPORT_PATH=./report.xml mocha --colors --reporter mocha-jenkins-reporter --reporter-options junit_report_name='ACLogger'"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.0.0"
   }
 }
