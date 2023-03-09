@@ -1,3 +1,25 @@
+<a name="2.0.0"></a>
+ 
+# [2.0.0](https://github.com/admiralcloud/ac-logger/compare/v1.3.2..v2.0.0) (2023-03-09 18:18:08)
+
+
+### Feature
+
+* **App:** Package updates | MP | [a922b1fc6a73c866315951269bcb8ffb17bab346](https://github.com/admiralcloud/ac-logger/commit/a922b1fc6a73c866315951269bcb8ffb17bab346)    
+Package updates  
+Related issues: [undefined/undefined#master](undefined/browse/master)
+### Bug Fix
+
+* **App:** Add branch to bootstrapInfo | MP | [2cf0f48c5ac9c954c8dae8e705ce14a87d8439c7](https://github.com/admiralcloud/ac-logger/commit/2cf0f48c5ac9c954c8dae8e705ce14a87d8439c7)    
+Add branch to bootstrapInfo  
+Related issues: [undefined/undefined#master](undefined/browse/master)
+### Tests
+
+* **App:** Added first test | MP | [cd44af0721256f9e72253ed307e0b80f15af7312](https://github.com/admiralcloud/ac-logger/commit/cd44af0721256f9e72253ed307e0b80f15af7312)    
+First test  
+Related issues: [undefined/undefined#master](undefined/browse/master)
+## BREAKING CHANGES
+* **App:** Node 16+ required
 <a name="1.3.2"></a>
 
 ## [1.3.2](https://github.com/admiralcloud/ac-logger/compare/v1.3.1..v1.3.2) (2023-02-02 19:04:00)
