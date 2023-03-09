@@ -96,16 +96,16 @@ module.exports = (config) => {
     acLogger.info(_.repeat('-', length))
   }
 
-  const bootstrapInfo = (params) => {
+  const bootstrapInfo = ({ appName = 'App name missing', branch }) => {
     const pwd = process.cwd()
     const pjson = require(path.resolve(pwd, 'package.json'))
     const environment = process.env.NODE_ENV || 'development'
-    const appName = _.get(params, 'appName', 'App name missing')
     const padLength = 15
     acLogger.info('')
     hrLine()
     listing({ field: 'Time', value: moment().format('YYYY-MM-DD HH:mm:ss'), padLength })
     listing({ field: 'Environment', value: environment, padLength })
+    if (branch) listing({ field: 'Branch', value: branch, padLength })
     listing({ field: 'Version', value: pjson.version, padLength })
     listing({ field: 'AppName', value: appName, padLength })
     acLogger.info('')
