@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+ 
+# [2.2.0](https://github.com/admiralcloud/ac-logger/compare/v2.1.0..v2.2.0) (2023-07-26 07:02:00)
+
+
+### Feature
+
+* **App:** Add option for log rotation | MP | [e4b0b2163b1cefdd37aba734b7e28349a0a7e658](https://github.com/admiralcloud/ac-logger/commit/e4b0b2163b1cefdd37aba734b7e28349a0a7e658)    
+You can use winston-daily-rotate-file with ac-logger  
+Related issues: [/issues#undefined](https://github.com//issues/undefined)
 <a name="2.1.0"></a>
  
 # [2.1.0](https://github.com/admiralcloud/ac-logger/compare/v2.0.1..v2.1.0) (2023-07-26 06:39:56)
