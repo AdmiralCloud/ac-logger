@@ -5,7 +5,7 @@ const path = require('path')
 const { createLogger, format, transports, addColors } = require('winston')
 require('winston-daily-rotate-file')
 
-module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', level = (process.env.NODE_ENV === 'production' ? 'info' : 'verbose'), headLength = 80, padLength = 12, customLevels, additionalTransports } = {}) => {
+module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', level = (process.env.NODE_ENV === 'production' ? 'info' : 'verbose'), headLength = 80, padLength = 12, customLevels, transporters = [] } = {}) => {
   const precisionMap = [
     { precision: 1e6, name: 'ms' },
     { precision: 1e3, name: 'µs' },
@@ -34,6 +34,25 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
     return `${timestamp} ${level} ${fileName}${functionName}${subName}${prefixData}${message}`
   })
 
+  const logTransports = []
+  if (!_.size(transporters)) {
+    // default behaviour
+    logTransports.push(new transports.Console())
+    if (process.env.NODE_ENV === 'test') {
+      logTransports.push(new transports.File({
+        filename: 'test.log',
+        level: 'debug'
+      }))
+    }
+  }
+  else {
+    _.forEach(transporters, item => {
+      const logTransport = new transports[item.type](item.options)
+      if (_.has(item, 'onRotate')) logTransport.on('rotate', item.onRotate)
+      logTransports.push(logTransport)
+    })
+  }
+
   const logConfig = {
     level,
     format: format.combine(
@@ -49,30 +68,13 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       format.splat(),
       myFormat
     ),
-    transports: [
-      new transports.Console()
-    ]
+    transports: logTransports
   }
   if (_.get(customLevels, 'levels')) _.set(logConfig, 'levels', _.get(customLevels, 'levels'))
 
   const acLogger = createLogger(logConfig)
   if (_.get(customLevels, 'colors')) addColors(_.get(customLevels, 'colors'))
-
-  // Array of objects with type (e.g. File) and options for that type 
-  if (_.size(additionalTransports)) {
-    _.forEach(additionalTransports, additionalTransport => {
-      const transport = new transports[additionalTransport.type](additionalTransport.options)
-      if (_.has(additionalTransport, 'onRotate')) transport.on('rotate', additionalTransport.onRotate)
-      acLogger.add(transport)
-    })
-  }
   
-  if (process.env.NODE_ENV === 'test') {
-    acLogger.add(new transports.File({
-      filename: 'test.log',
-      level: 'debug'
-    }))
-  }
 
   const headline = (params) => {
     acLogger.info('')
