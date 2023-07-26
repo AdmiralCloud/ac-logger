@@ -1,3 +1,13 @@
+<a name="2.2.1"></a>
+
+## [2.2.1](https://github.com/admiralcloud/ac-logger/compare/v2.2.0..v2.2.1) (2023-07-26 08:32:44)
+
+
+### Bug Fix
+
+* **App:** Add more flexibility for transporters | MP | [e661253e0dd6f68165941aeb9fb5a2c2ed6483d7](https://github.com/admiralcloud/ac-logger/commit/e661253e0dd6f68165941aeb9fb5a2c2ed6483d7)    
+You can create logger without default console log.  
+Related issues: [/issues#undefined](https://github.com//issues/undefined)
 <a name="2.2.0"></a>
  
 # [2.2.0](https://github.com/admiralcloud/ac-logger/compare/v2.1.0..v2.2.0) (2023-07-26 07:02:00)
