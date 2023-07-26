@@ -27,3 +27,4 @@ localtest.js
 ########################
 .jenkins.conf
 test.log
+application-*.log

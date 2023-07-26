@@ -7,7 +7,8 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "winston": "^3.10.0"
+    "winston": "^3.10.0",
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "ac-semantic-release": "^0.4.2",

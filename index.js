@@ -2,7 +2,8 @@ const _ = require('lodash')
 const moment = require('moment')
 const path = require('path')
 
-const { createLogger, format, transports, addColors } = require('winston');
+const { createLogger, format, transports, addColors } = require('winston')
+require('winston-daily-rotate-file')
 
 module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', level = (process.env.NODE_ENV === 'production' ? 'info' : 'verbose'), headLength = 80, padLength = 12, customLevels, additionalTransports } = {}) => {
   const precisionMap = [
@@ -30,7 +31,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       console.error(e)
       if (_.get(e, 'message')) message += ' | ' + _.get(e, 'message', '')
     }
-    return `${timestamp} ${level} ${fileName}${functionName}${subName}${prefixData}${message}`;
+    return `${timestamp} ${level} ${fileName}${functionName}${subName}${prefixData}${message}`
   })
 
   const logConfig = {
@@ -42,7 +43,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       format.errors({ stack: true }),
       format(info => {
         info.level = _.padEnd(info.level.toUpperCase(), 8)
-        return info;
+        return info
       })(),
       format.colorize(),
       format.splat(),
@@ -59,8 +60,10 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
 
   // Array of objects with type (e.g. File) and options for that type 
   if (_.size(additionalTransports)) {
-    _.forEach(additionalTransports, transport => {
-      acLogger.add(new transports[transport.type](transport.options))
+    _.forEach(additionalTransports, additionalTransport => {
+      const transport = new transports[additionalTransport.type](additionalTransport.options)
+      if (_.has(additionalTransport, 'onRotate')) transport.on('rotate', additionalTransport.onRotate)
+      acLogger.add(transport)
     })
   }
   
