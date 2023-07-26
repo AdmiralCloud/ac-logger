@@ -4,14 +4,7 @@ const path = require('path')
 
 const { createLogger, format, transports, addColors } = require('winston');
 
-module.exports = (config) => {
-  const prefixFields = _.get(config, 'prefixFields', [])
-  const timestampFormat = _.get(config, 'timestampFormat', 'YYYY-MM-DD HH:mm:ss')
-  const level = _.get(config, 'level', (process.env.NODE_ENV === 'production' ? 'info' : 'verbose'))
-  const headLength = _.get(config, 'headLength', 80)
-  const padLength = _.get(config, 'padLength', 12)
-  const customLevels = _.get(config,'customLevels')
-
+module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', level = (process.env.NODE_ENV === 'production' ? 'info' : 'verbose'), headLength = 80, padLength = 12, customLevels, additionalTransports } = {}) => {
   const precisionMap = [
     { precision: 1e6, name: 'ms' },
     { precision: 1e3, name: 'µs' },
@@ -64,6 +57,13 @@ module.exports = (config) => {
   const acLogger = createLogger(logConfig)
   if (_.get(customLevels, 'colors')) addColors(_.get(customLevels, 'colors'))
 
+  // Array of objects with type (e.g. File) and options for that type 
+  if (_.size(additionalTransports)) {
+    _.forEach(additionalTransports, transport => {
+      acLogger.add(new transports[transport.type](transport.options))
+    })
+  }
+  
   if (process.env.NODE_ENV === 'test') {
     acLogger.add(new transports.File({
       filename: 'test.log',
