@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+ 
+# [2.1.0](https://github.com/admiralcloud/ac-logger/compare/v2.0.1..v2.1.0) (2023-07-26 06:39:56)
+
+
+### Feature
+
+* **App:** Add option to add more transporters | MP | [1b26ccf1bee9dde56545e51f767f03def84328b7](https://github.com/admiralcloud/ac-logger/commit/1b26ccf1bee9dde56545e51f767f03def84328b7)    
+You can init the logger with additional transporters  
+Related issues: [/issues#undefined](https://github.com//issues/undefined)
 <a name="2.0.1"></a>
 
 ## [2.0.1](https://github.com/admiralcloud/ac-logger/compare/v2.0.0..v2.0.1) (2023-07-26 06:22:11)

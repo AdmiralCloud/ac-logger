@@ -3,7 +3,7 @@
   "author": "Mark Poepping (https://www.admiralcloud.com)",
   "license": "MIT",
   "repository": "admiralcloud/ac-logger",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "dependencies": {
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
