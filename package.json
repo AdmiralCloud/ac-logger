@@ -7,13 +7,13 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "winston": "^3.10.0",
+    "winston": "^3.11.0",
     "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "ac-semantic-release": "^0.4.2",
-    "chai": "^4.3.7",
-    "eslint": "^8.45.0",
+    "chai": "^4.3.10",
+    "eslint": "^8.55.0",
     "intercept-stdout": "^0.1.2",
     "mocha": "^10.2.0",
     "mocha-jenkins-reporter": "^0.4.8"
