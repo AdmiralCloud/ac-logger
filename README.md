@@ -14,12 +14,16 @@ const aclog = require('ac-logger')
 const logConfig = {
   prefixFields: [
     { field: 'jobId', short: 'J' },
-  ]
+  ],
+  applicationLogs: {
+    enabled: true // if true, JSON formatted, machine readable application logs will be created into logs directory
+  }
 }
 
 app = {} // 
 app.log = aclog({ prefixFields: logConfig.prefixFields }).acLogger
 
+// DEPRECATED
 let logMeta = {
   fileName: 'UploadS3',
   functionName: 'upload',
@@ -27,6 +31,9 @@ let logMeta = {
 }
 app.log.info('Message for %s', 'some string', { meta: logMeta })
 // -> INFO UploadS3 | upload | J 193 | Message for some string
+
+// MODERN APPROACH (that is best suited for machine and human readability)
+app.log.info('Message for some string', { functionName: 'upload', ... }) // all meta data like "functionName" will be available in application logs
 
 ```
 

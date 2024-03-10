@@ -13,23 +13,40 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
     { precision: 1, name: 'ns' },
   ]
 
+  const splatFormatter = format((data) => {
+    // Check if splat is available and the message contains placeholder(s)
+    if (data[Symbol.for('splat')] && /%[sjdifoO%]/.test(data.message)) {
+      data.message = util.format(data.message, ...data[Symbol.for('splat')])
+    }
+    return data
+  })
+
   const myFormat = format.printf((data) => {
     const level = data[Symbol.for('level')]
     // http log format
     if (level === 'http' && data?.controller) {
-      return `${data?.timestamp} ${data?.level} ${data?.ip} ${data?.iso2 || ''} ${data?.accessKey || ''} ${data?.customerId}/${data?.userId} ${data?.controller} ${data?.action} | ${data?.statusCode} | ${data?.performance?.executionTime}ms`
+      // display accessKey, link (if applicable)
+      let message = data?.message ? ` ${data.message}` : ''
+      let cuid = data?.customerId ? data?.customerId : ''
+      if (data?.userId) cuid += `/${data.userId} `
+      return `${data?.timestamp} ${data?.level} ${data?.ip} ${data?.iso2 || ''} ${data?.accessKey || ''} ${cuid}${data?.controller} ${data?.action}${message} | ${data?.statusCode} | ${data?.performance?.executionTime}ms`
     }
     else {
       const meta = data?.meta
-      const fileName = _.get(meta, 'fileName') ? _.get(meta, 'fileName') + ' | ' : ''
-      const functionName = _.get(meta, 'functionName') ? _.get(meta, 'functionName') + ' | ' : ''
-      const subName = _.get(meta, 'sub') ? _.get(meta, 'sub') + ' | ' : ''
+      // 
+      let fileName = _.get(meta, 'fileName') ? _.get(meta, 'fileName') + ' | ' : ''
+      let functionName = _.get(meta, 'functionName') ? _.get(meta, 'functionName') + ' | ' : _.get(data, 'functionName') ? _.get(data, 'functionName') + ' | ' : ''
+      let subName = _.get(meta, 'sub') ? _.get(meta, 'sub') + ' | ' : _.get(data, 'sub') ? _.get(data, 'sub') + ' | ' : ''
+      
+      // modern approach (fileName, functionName, sub) // TBD with team
+      let functionIdentifier =  _.get(data, 'functionIdentifier') ? _.get(data, 'functionIdentifier') + ' | ' : ''
+      if (!fileName && _.get(data, 'fileName')) fileName =  _.get(data, 'fileName')
+      if (!functionName && _.get(data, 'functionName')) functionName =  _.get(data, 'functionName')
+      if (!subName && _.get(data, 'sub')) subName =  _.get(data, 'sub')
+
+      
       let message = data?.message
 
-      if (data[Symbol.for('splat')]) {
-        // Perform sprintf-like interpolation
-        message = util.format(message, ...data[Symbol.for('splat')]);
-      }
   
       let prefix = []
       let dataFromPrefix = []
@@ -45,7 +62,8 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
         console.error(data?.e)
         if (data?.e?.message) message += ' | ' + ( data?.e?.message  || '')
       }
-      return `${data?.timestamp} ${data?.level} ${fileName}${functionName}${subName}${prefixData}${message}`
+      // TODO: for better readability, we shold use padding for fileName, functionname, etc
+      return `${data?.timestamp} ${data?.level} ${fileName}${functionName}${functionIdentifier}${subName}${prefixData}${message}`
     }
   })
 
@@ -65,6 +83,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
           return info
         })(),
         format.colorize(),
+        splatFormatter(),
         myFormat
       ),
     }))
@@ -90,6 +109,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
         dirname: applicationLogs?.firname || './logs', // Specify the directory for log files
         format: format.combine(
           format.timestamp(),
+          splatFormatter(),
           format.json()
         )
       })
