@@ -1,43 +1,105 @@
 const _ = require('lodash')
 const moment = require('moment')
 const path = require('path')
+const util = require('util')
 
 const { createLogger, format, transports, addColors } = require('winston')
 require('winston-daily-rotate-file')
 
-module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', level = (process.env.NODE_ENV === 'production' ? 'info' : 'verbose'), headLength = 80, padLength = 12, customLevels, transporters = [] } = {}) => {
+module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', level = (process.env.NODE_ENV === 'production' ? 'info' : 'verbose'), headLength = 80, padLength = 12, customLevels, transporters = [], applicationLogs = { enabled: false } } = {}) => {
   const precisionMap = [
     { precision: 1e6, name: 'ms' },
     { precision: 1e3, name: 'µs' },
     { precision: 1, name: 'ns' },
   ]
 
-  const myFormat = format.printf(({ timestamp, level, message, meta, e }) => {
-    const fileName = _.get(meta, 'fileName') ? _.get(meta, 'fileName') + ' | ' : ''
-    const functionName = _.get(meta, 'functionName') ? _.get(meta, 'functionName') + ' | ' : ''
-    const subName = _.get(meta, 'sub') ? _.get(meta, 'sub') + ' | ' : ''
-
-    let prefix = []
-    let data = []
-    _.forEach(prefixFields, item => {
-      if (_.get(meta, _.get(item, 'field'))) {
-        prefix.push(_.get(item, 'short'))
-        data.push(_.get(meta, _.get(item, 'field')))
-      }  
-    })
-    const prefixData = _.size(prefix) ? (_.join(prefix, '/') + ' ' + _.join(data, '/') + ' | ') : ''
-    if (e instanceof Error) {
-      // log the stack
-      console.error(e)
-      if (_.get(e, 'message')) message += ' | ' + _.get(e, 'message', '')
+  const myFormat = format.printf((data) => {
+    const level = data[Symbol.for('level')]
+    // http log format
+    if (level === 'http' && data?.controller) {
+      return `${data?.timestamp} ${data?.level} ${data?.ip} ${data?.iso2 || ''} ${data?.accessKey || ''} ${data?.customerId}/${data?.userId} ${data?.controller} ${data?.action} | ${data?.statusCode} | ${data?.performance?.executionTime}ms`
     }
-    return `${timestamp} ${level} ${fileName}${functionName}${subName}${prefixData}${message}`
+    else {
+      const meta = data?.meta
+      const fileName = _.get(meta, 'fileName') ? _.get(meta, 'fileName') + ' | ' : ''
+      const functionName = _.get(meta, 'functionName') ? _.get(meta, 'functionName') + ' | ' : ''
+      const subName = _.get(meta, 'sub') ? _.get(meta, 'sub') + ' | ' : ''
+      let message = data?.message
+
+      if (data[Symbol.for('splat')]) {
+        // Perform sprintf-like interpolation
+        message = util.format(message, ...data[Symbol.for('splat')]);
+      }
+  
+      let prefix = []
+      let dataFromPrefix = []
+      _.forEach(prefixFields, item => {
+        if (_.get(meta, _.get(item, 'field'))) {
+          prefix.push(_.get(item, 'short'))
+          dataFromPrefix.push(_.get(meta, _.get(item, 'field')))
+        }  
+      })
+      const prefixData = _.size(prefix) ? (_.join(prefix, '/') + ' ' + _.join(dataFromPrefix, '/') + ' | ') : ''
+      if (data?.e instanceof Error) {
+        // log the stack
+        console.error(data?.e)
+        if (data?.e?.message) message += ' | ' + ( data?.e?.message  || '')
+      }
+      return `${data?.timestamp} ${data?.level} ${fileName}${functionName}${subName}${prefixData}${message}`
+    }
   })
+
 
   const logTransports = []
   if (!_.size(transporters)) {
     // default behaviour
-    logTransports.push(new transports.Console())
+    // human-readable console output
+    logTransports.push(new transports.Console({
+      format: format.combine(
+        format.timestamp({
+          format: timestampFormat
+        }),
+        format.errors({ stack: true }),
+        format(info => {
+          info.level = _.padEnd(info.level.toUpperCase(), 8)
+          return info
+        })(),
+        format.colorize(),
+        myFormat
+      ),
+    }))
+
+    // structured logging for analysis and querying within the CloudWatch service.
+    if (applicationLogs?.enabled) {
+      let filename = applicationLogs?.filename || 'application.log'
+      if (filename.endsWith('.log')) {
+        // If the filename ends with .log, insert -%DATE% before the extension
+        filename = filename.replace(/\.log$/, '-%DATE%.log');
+      } 
+      else {
+        // If the filename doesn't end with .log, append -%DATE%.log
+        filename = `${filename}-%DATE%.log`;
+      }
+
+      const transport = new transports.DailyRotateFile({
+        filename,
+        datePattern: 'YYYY-MM-DD',
+        zippedArchive: true, // Enable gzip compression for rotated files
+        maxSize: applicationLogs?.maxSize || '100m', // Rotate the file when it reaches 20MB
+        maxFiles: applicationLogs?.maxFiles || '7d', // Keep rotated files for 7 days
+        dirname: applicationLogs?.firname || './logs', // Specify the directory for log files
+        format: format.combine(
+          format.timestamp(),
+          format.json()
+        )
+      })
+
+      transport.on('error', error => {
+        acLogger.error('ac-logger | ApplicationLogs | TransportError | %j', error?.message)
+      })
+      logTransports.push(transport)
+    }
+
     if (process.env.NODE_ENV === 'test') {
       logTransports.push(new transports.File({
         filename: 'test.log',
@@ -55,19 +117,6 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
 
   const logConfig = {
     level,
-    format: format.combine(
-      format.timestamp({
-        format: timestampFormat
-      }),
-      format.errors({ stack: true }),
-      format(info => {
-        info.level = _.padEnd(info.level.toUpperCase(), 8)
-        return info
-      })(),
-      format.colorize(),
-      format.splat(),
-      myFormat
-    ),
     transports: logTransports
   }
   if (_.get(customLevels, 'levels')) _.set(logConfig, 'levels', _.get(customLevels, 'levels'))
@@ -75,6 +124,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
   const acLogger = createLogger(logConfig)
   if (_.get(customLevels, 'colors')) addColors(_.get(customLevels, 'colors'))
   
+
 
   const headline = (params) => {
     acLogger.info('')
