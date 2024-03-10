@@ -1,3 +1,13 @@
+<a name="2.3.1"></a>
+
+## [2.3.1](https://github.com/admiralcloud/ac-logger/compare/v2.3.0..v2.3.1) (2024-03-10 12:31:44)
+
+
+### Bug Fix
+
+* **App:** Minor improvement for backwards compatibily | MP | [462a6c38269dafccde1f18ffd8a079ac19022269](https://github.com/admiralcloud/ac-logger/commit/462a6c38269dafccde1f18ffd8a079ac19022269)    
+Minor improvement for backwards compatibility  
+Related issues: [undefined/undefined#master](undefined/browse/master)
 <a name="2.3.0"></a>
  
 # [2.3.0](https://github.com/admiralcloud/ac-logger/compare/v2.2.3..v2.3.0) (2024-03-10 11:09:52)
