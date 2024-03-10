@@ -1,3 +1,18 @@
+<a name="2.3.0"></a>
+ 
+# [2.3.0](https://github.com/admiralcloud/ac-logger/compare/v2.2.3..v2.3.0) (2024-03-10 11:09:52)
+
+
+### Feature
+
+* **App:** Improved application logs | MP | [5d505c148e44045daf40909092542d7e96949f74](https://github.com/admiralcloud/ac-logger/commit/5d505c148e44045daf40909092542d7e96949f74)    
+ac-logger now supports machine readable application logs (if enabled). This way analyzing logs in Cloudwatch (or other apps) will be much easier.  
+Related issues: [undefined/undefined#master](undefined/browse/master)
+### Chores
+
+* **App:** Updated packages | MP | [d2fe6c8ade4f1058e0315c30a8f4c85686f03181](https://github.com/admiralcloud/ac-logger/commit/d2fe6c8ade4f1058e0315c30a8f4c85686f03181)    
+Updated packages  
+Related issues: [undefined/undefined#master](undefined/browse/master)
 <a name="2.2.3"></a>
 
 ## [2.2.3](https://github.com/admiralcloud/ac-logger/compare/v2.2.2..v2.2.3) (2024-01-01 13:10:51)
