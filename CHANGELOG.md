@@ -1,3 +1,18 @@
+<a name="2.3.2"></a>
+
+## [2.3.2](https://github.com/admiralcloud/ac-logger/compare/v2.3.1..v2.3.2) (2024-05-08 15:32:14)
+
+
+### Bug Fix
+
+* **App:** Added option to change logLevel during runtime | MP | [1e59bed4b7d56dff95584fdf528f4dd931e3e6a2](https://github.com/admiralcloud/ac-logger/commit/1e59bed4b7d56dff95584fdf528f4dd931e3e6a2)    
+It is now possible to change loglevel after init  
+Related issues: [undefined/undefined#master](undefined/browse/master)
+### Chores
+
+* **App:** Updated packages | MP | [af832d3e7cb148e625b0bcd0756d69044bcb812d](https://github.com/admiralcloud/ac-logger/commit/af832d3e7cb148e625b0bcd0756d69044bcb812d)    
+Updated packages  
+Related issues: [undefined/undefined#master](undefined/browse/master)
 <a name="2.3.1"></a>
 
 ## [2.3.1](https://github.com/admiralcloud/ac-logger/compare/v2.3.0..v2.3.1) (2024-03-10 12:31:44)
