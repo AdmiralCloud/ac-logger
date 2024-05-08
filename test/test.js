@@ -23,6 +23,30 @@ describe('Tests', () => {
     expect(lines[9]).to.contain('AppName')
     expect(lines[9]).to.contain('myApp')
   })
+  
+
+  it('Log info', () => {
+    captured_text = ''
+    const log = aclog().acLogger
+    log.info('Hello Info')
+    log.debug('Hello Debug')
+    const lines = captured_text.split('\n')
+    expect(lines[0]).to.contain('INFO')
+    expect(lines[1]).not.to.contain('DEBUG')
+  })
+
+  it('Log debug', () => {
+    const loggerSetup = aclog();
+    const log = loggerSetup.acLogger
+    loggerSetup.changeLogLevel('debug')
+    captured_text = ''
+    log.info('Hello Info')
+    log.debug('Hello Debug')
+    const lines = captured_text.split('\n')
+    expect(lines[0]).to.contain('INFO')
+    expect(lines[1]).to.contain('DEBUG')
+  })
+
 
   it('Unhook', () => {
     unhook_intercept()

@@ -91,6 +91,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
     // structured logging for analysis and querying within the CloudWatch service.
     if (applicationLogs?.enabled) {
       let filename = applicationLogs?.filename || 'application.log'
+      const symlinkName = filename
       if (filename.endsWith('.log')) {
         // If the filename ends with .log, insert -%DATE% before the extension
         filename = filename.replace(/\.log$/, '-%DATE%.log');
@@ -111,7 +112,9 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
           format.timestamp(),
           splatFormatter(),
           format.json()
-        )
+        ),
+        createSymlink: true, // Enable symlink creation
+        symlinkName: symlinkName // Fixed name for the current log file symlink
       })
 
       transport.on('error', error => {
@@ -144,7 +147,15 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
   const acLogger = createLogger(logConfig)
   if (_.get(customLevels, 'colors')) addColors(_.get(customLevels, 'colors'))
   
-
+    const changeLogLevel = (newLevel) => {
+      acLogger.transports.forEach((transport) => {
+        const currentLevel = transport.level || acLogger.level;  // Fallback to the logger's default level
+        if (currentLevel !== newLevel) {
+          console.log(`Changing level of ${transport.name} from ${currentLevel} to ${newLevel}`);
+          transport.level = newLevel; // Confirm this line is executing
+        }
+      });
+    };
 
   const headline = (params) => {
     acLogger.info('')
@@ -228,6 +239,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
 
   return {
     acLogger,
+    changeLogLevel,
     headline,
     functionStartLine,
     listing,
