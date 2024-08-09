@@ -26,7 +26,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
     // http log format
     if (level === 'http' && data?.controller) {
       // display accessKey, link (if applicable)
-      let message = data?.message ? ` ${data.message}` : ''
+      const message = data?.message ? ` ${data.message}` : ''
       let cuid = data?.customerId ? data?.customerId : ''
       if (data?.userId) cuid += `/${data.userId} `
       // colorize status codes
@@ -55,7 +55,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       let subName = _.get(meta, 'sub') ? _.get(meta, 'sub') + ' | ' : _.get(data, 'sub') ? _.get(data, 'sub') + ' | ' : ''
       
       // modern approach (fileName, functionName, sub) // TBD with team
-      let functionIdentifier =  _.get(data, 'functionIdentifier') ? _.get(data, 'functionIdentifier') + ' | ' : ''
+      const functionIdentifier =  _.get(data, 'functionIdentifier') ? _.get(data, 'functionIdentifier') + ' | ' : ''
       if (!fileName && _.get(data, 'fileName')) fileName =  _.get(data, 'fileName')
       if (!functionName && _.get(data, 'functionName')) functionName =  _.get(data, 'functionName')
       if (!subName && _.get(data, 'sub')) subName =  _.get(data, 'sub')
@@ -64,8 +64,8 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       let message = data?.message
 
   
-      let prefix = []
-      let dataFromPrefix = []
+      const prefix = []
+      const dataFromPrefix = []
       _.forEach(prefixFields, item => {
         if (_.get(meta, _.get(item, 'field'))) {
           prefix.push(_.get(item, 'short'))
@@ -167,7 +167,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       acLogger.transports.forEach((transport) => {
         const currentLevel = transport.level || acLogger.level;  // Fallback to the logger's default level
         if (currentLevel !== newLevel) {
-          console.log(`Changing level of ${transport.name} from ${currentLevel} to ${newLevel}`);
+          console.warn(`Changing level of ${transport.name} from ${currentLevel} to ${newLevel}`);
           transport.level = newLevel; // Confirm this line is executing
         }
       });
