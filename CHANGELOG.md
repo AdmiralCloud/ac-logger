@@ -1,3 +1,25 @@
+<a name="3.0.0"></a>
+ 
+# [3.0.0](https://github.com/admiralcloud/ac-logger/compare/v2.3.2..v3.0.0) (2024-08-09 15:08:00)
+
+
+### Bug Fix
+
+* **App:** Add colorization based on statusCode | MP | [e7d87144520ae667dce9e25b0a8c672dadacddc8](https://github.com/admiralcloud/ac-logger/commit/e7d87144520ae667dce9e25b0a8c672dadacddc8)    
+Add colorization based on statusCode  
+Related issues: [undefined/undefined#master](undefined/browse/master)
+### Style
+
+* **App:** Lint fix | MP | [4c4c1edaecd3f94acf688fabdd78687212a12b31](https://github.com/admiralcloud/ac-logger/commit/4c4c1edaecd3f94acf688fabdd78687212a12b31)    
+Lint fix  
+Related issues: [undefined/undefined#master](undefined/browse/master)
+### Chores
+
+* **App:** Updated packages | MP | [a2b6d3244a9db6cdd2af978fc15a0d5cfec4408d](https://github.com/admiralcloud/ac-logger/commit/a2b6d3244a9db6cdd2af978fc15a0d5cfec4408d)    
+Updated packages  
+Related issues: [undefined/undefined#master](undefined/browse/master)
+## BREAKING CHANGES
+* **App:** Minimum Node version 18
 <a name="2.3.2"></a>
 
 ## [2.3.2](https://github.com/admiralcloud/ac-logger/compare/v2.3.1..v2.3.2) (2024-05-08 15:32:14)
