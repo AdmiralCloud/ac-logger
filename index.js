@@ -29,7 +29,23 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       let message = data?.message ? ` ${data.message}` : ''
       let cuid = data?.customerId ? data?.customerId : ''
       if (data?.userId) cuid += `/${data.userId} `
-      return `${data?.timestamp} ${data?.level} ${data?.ip} ${data?.iso2 || ''} ${data?.accessKey || ''} ${cuid}${data?.controller} ${data?.action}${message} | ${data?.statusCode} | ${data?.performance?.executionTime}ms`
+      // colorize status codes
+
+      const statusCode = data?.statusCode
+      let displayStatusCode = (statusCode || ' ')
+      if (statusCode >= 500) {
+        displayStatusCode = `\x1B[35m${statusCode}\x1B[0m`
+      } 
+      else if (statusCode >= 400) {
+        displayStatusCode = `\x1B[31m${statusCode}\x1B[0m`
+      } 
+      else if (statusCode >= 300) {
+        displayStatusCode = `\x1B[33m${statusCode}\x1B[0m`
+      } 
+      else if (statusCode >= 200) {
+        displayStatusCode = `\x1B[32m${statusCode}\x1B[0m`
+      } 
+      return `${data?.timestamp} ${data?.level} ${data?.ip} ${data?.iso2 || ''} ${data?.accessKey || ''} ${cuid}${data?.controller} ${data?.action}${message} | ${displayStatusCode} | ${data?.performance?.executionTime}ms`
     }
     else {
       const meta = data?.meta
