@@ -1,3 +1,12 @@
+
+## [3.0.1](https://github.com/admiralcloud/ac-logger/compare/v3.0.0..v3.0.1) (2025-04-19 17:49:39)
+
+
+### Bug Fix
+
+* **App:** Package updates | MP | [5c7ca057d9079fb148b6106e805839e915d7da84](https://github.com/admiralcloud/ac-logger/commit/5c7ca057d9079fb148b6106e805839e915d7da84)    
+Package updates  
+Related issues:
 <a name="3.0.0"></a>
  
 # [3.0.0](https://github.com/admiralcloud/ac-logger/compare/v2.3.2..v3.0.0) (2024-08-09 15:08:00)
