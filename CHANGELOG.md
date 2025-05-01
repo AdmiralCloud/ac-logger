@@ -1,4 +1,18 @@
 
+## [3.0.2](https://github.com/admiralcloud/ac-logger/compare/v3.0.1..v3.0.2) (2025-05-01 06:45:16)
+
+
+### Bug Fix
+
+* **App:** Add option to retrieve logs without sending to stdout | MP | [d42bb231fff0123d4c6f52d638fd69720af0f598](https://github.com/admiralcloud/ac-logger/commit/d42bb231fff0123d4c6f52d638fd69720af0f598)    
+You can use function with collectOnly option to just retrieve the log info  
+Related issues:
+### Chores
+
+* **App:** Updated packages | MP | [7b16ae721587e1d9eace2d9117e0771339e2ef6c](https://github.com/admiralcloud/ac-logger/commit/7b16ae721587e1d9eace2d9117e0771339e2ef6c)    
+Updated packages  
+Related issues:
+
 ## [3.0.1](https://github.com/admiralcloud/ac-logger/compare/v3.0.0..v3.0.1) (2025-04-19 17:49:39)
 
 
