@@ -11,9 +11,9 @@
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
-    "ac-semantic-release": "^0.4.5",
+    "ac-semantic-release": "^0.4.6",
     "chai": "^4.5.0",
-    "eslint": "^9.25.0",
+    "eslint": "^9.25.1",
     "intercept-stdout": "^0.1.2",
     "mocha": "^11.1.0",
     "mocha-jenkins-reporter": "^0.4.8"
