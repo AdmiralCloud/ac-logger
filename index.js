@@ -198,22 +198,36 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
     acLogger.info(_.repeat('-', length))
   }
 
-  const bootstrapInfo = ({ appName = 'App name missing', branch }) => {
+  const bootstrapInfo = ({ appName = 'App name missing', branch, collectOnly = false }) => {
     const pwd = process.cwd()
     const pjson = require(path.resolve(pwd, 'package.json'))
     const environment = process.env.NODE_ENV || 'development'
     const padLength = 15
-    acLogger.info('')
-    hrLine()
-    listing({ field: 'Time', value: moment().format('YYYY-MM-DD HH:mm:ss'), padLength })
-    listing({ field: 'Environment', value: environment, padLength })
-    if (branch) listing({ field: 'Branch', value: branch, padLength })
-    listing({ field: 'Version', value: pjson.version, padLength })
-    listing({ field: 'AppName', value: appName, padLength })
-    acLogger.info('')
-    listing({ field: 'BOOTSTRAPPING', value:  '\x1b[32mSuccessful\x1b[0m', padLength })   
-    acLogger.info(_.repeat('-', headLength))
-    hrLine()
+    if (collectOnly) {
+      const logCollector = []
+      logCollector.push({ field: 'Environment', value: environment, padLength })
+      if (branch) {
+        logCollector.push({ field: 'Branch', value: branch, padLength })
+      }
+      logCollector.push({ field: 'Version', value: pjson.version, padLength })
+      logCollector.push({ field: 'AppName', value: appName, padLength })
+      logCollector.push({ field: 'BOOTSTRAPPING', value:  '\x1b[32mSuccessful\x1b[0m', padLength })   
+      return logCollector
+    }
+    else {
+      acLogger.info('')
+      hrLine()
+      listing({ field: 'Time', value: moment().format('YYYY-MM-DD HH:mm:ss'), padLength })
+      listing({ field: 'Environment', value: environment, padLength })
+      if (branch) {
+        listing({ field: 'Branch', value: branch, padLength })
+      }
+      listing({ field: 'Version', value: pjson.version, padLength })
+      listing({ field: 'AppName', value: appName, padLength })
+      acLogger.info('')
+      listing({ field: 'BOOTSTRAPPING', value:  '\x1b[32mSuccessful\x1b[0m', padLength })   
+      hrLine()
+    }
   }
 
   /**
@@ -222,13 +236,26 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
    * and connection
    */
   const serverInfo = (params) => {
+    const { collectOnly } = params
+    const logCollector = []
     const fields = ['instance', 'server', 'host', 'port', 'version', 'cluster', 'clusterVersion', 'ssl', 'db', 'database', 'index', 'user']
     _.forEach(fields, field => {
       if (_.get(params, field)) {
-        listing({ field: _.upperFirst(field), value: _.get(params, field) })
+        if (collectOnly) {
+          logCollector.push({ field: _.upperFirst(field), value: _.get(params, field) })
+        }
+        else {
+          listing({ field: _.upperFirst(field), value: _.get(params, field) })
+        }
       }
     })
-    listing({ field: 'Connection', value: '\x1b[32mSuccessful\x1b[0m' })
+    if (collectOnly) {
+      logCollector.push({ field: 'Connection', value: '\x1b[32mSuccessful\x1b[0m' })      
+    }
+    else {
+      listing({ field: 'Connection', value: '\x1b[32mSuccessful\x1b[0m' })
+    }
+    return logCollector
   }
 
   
