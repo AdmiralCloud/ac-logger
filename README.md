@@ -3,7 +3,7 @@ Unified logging function for all backend applications of AdmiralCloud. Use it in
 
 The purpose of the little app is to make sure that all applications use the same log format/notations.
 
-[![Node.js CI](https://github.com/AdmiralCloud/ac-logger/actions/workflows/node.js.yml/badge.svg)](https://github.com/AdmiralCloud/ac-logger/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/AdmiralCloud/ac-logger/actions/workflows/node.js.yml/badge.svg)](https://github.com/AdmiralCloud/ac-logger/actions/workflows/node.js.yml) [![CodeQL](https://github.com/AdmiralCloud/ac-logger/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/AdmiralCloud/ac-logger/actions/workflows/github-code-scanning/codeql)
 
 ## Usage
 Use it like Winston!
