@@ -28,7 +28,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       // display accessKey, link (if applicable)
       const message = data?.message ? ` ${data.message}` : ''
       let cuid = data?.customerId ? data?.customerId : ''
-      if (data?.userId) cuid += `/${data.userId} `
+      if (data?.userId) { cuid += `/${data.userId} ` }
       // colorize status codes
 
       const statusCode = data?.statusCode
@@ -56,9 +56,9 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       
       // modern approach (fileName, functionName, sub) // TBD with team
       const functionIdentifier =  _.get(data, 'functionIdentifier') ? _.get(data, 'functionIdentifier') + ' | ' : ''
-      if (!fileName && _.get(data, 'fileName')) fileName =  _.get(data, 'fileName')
-      if (!functionName && _.get(data, 'functionName')) functionName =  _.get(data, 'functionName')
-      if (!subName && _.get(data, 'sub')) subName =  _.get(data, 'sub')
+      if (!fileName && _.get(data, 'fileName')) { fileName =  _.get(data, 'fileName') }
+      if (!functionName && _.get(data, 'functionName')) { functionName =  _.get(data, 'functionName') }
+      if (!subName && _.get(data, 'sub')) { subName =  _.get(data, 'sub') }
 
       
       let message = data?.message
@@ -76,7 +76,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
       if (data?.e instanceof Error) {
         // log the stack
         console.error(data?.e)
-        if (data?.e?.message) message += ' | ' + ( data?.e?.message  || '')
+        if (data?.e?.message) { message += ' | ' + ( data?.e?.message  || '') }
       }
       // TODO: for better readability, we shold use padding for fileName, functionname, etc
       return `${data?.timestamp} ${data?.level} ${fileName}${functionName}${functionIdentifier}${subName}${prefixData}${message}`
@@ -149,7 +149,7 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
   else {
     _.forEach(transporters, item => {
       const logTransport = new transports[item.type](item.options)
-      if (_.has(item, 'onRotate')) logTransport.on('rotate', item.onRotate)
+      if (_.has(item, 'onRotate')) { logTransport.on('rotate', item.onRotate) }
       logTransports.push(logTransport)
     })
   }
@@ -158,10 +158,10 @@ module.exports = ({ prefixFields = [], timestampFormat = 'YYYY-MM-DD HH:mm:ss', 
     level,
     transports: logTransports
   }
-  if (_.get(customLevels, 'levels')) _.set(logConfig, 'levels', _.get(customLevels, 'levels'))
+  if (_.get(customLevels, 'levels')) { _.set(logConfig, 'levels', _.get(customLevels, 'levels')) }
 
   const acLogger = createLogger(logConfig)
-  if (_.get(customLevels, 'colors')) addColors(_.get(customLevels, 'colors'))
+  if (_.get(customLevels, 'colors')) { addColors(_.get(customLevels, 'colors')) }
   
     const changeLogLevel = (newLevel) => {
       acLogger.transports.forEach((transport) => {

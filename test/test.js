@@ -1,11 +1,11 @@
 const { expect } = require('chai')
 const aclog = require('../index')
 
-var intercept = require("intercept-stdout");
+const intercept = require("intercept-stdout");
 
-var captured_text = "";
+let captured_text = "";
 
-var unhook_intercept = intercept(function(text) {
+const unhook_intercept = intercept(function(text) {
   captured_text += text;
 });
 
