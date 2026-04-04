@@ -1,3 +1,29 @@
+# [4.0.0](https://github.com/admiralcloud/ac-logger/compare/v3.0.5..v4.0.0) (2026-04-04 13:14:46)
+
+
+### Bug Fix
+
+
+* **App:** Package updates | MP | [5361eb16cb8b8320b9416785f1e68f9e832ec391](https://github.com/admiralcloud/ac-logger/commit/5361eb16cb8b8320b9416785f1e68f9e832ec391)    
+Package updates  
+Related issues:
+* **Misc:** Requires Node 22+ | MP | [70a30278e37136a924ed67254071b66b55738772](https://github.com/admiralcloud/ac-logger/commit/70a30278e37136a924ed67254071b66b55738772)    
+Requires Node 22+  
+Related issues:
+### Style
+
+
+* **App:** Lint-fix | MP | [b93791fc3dbce7d7f0ed5f27c78711644b8bd88b](https://github.com/admiralcloud/ac-logger/commit/b93791fc3dbce7d7f0ed5f27c78711644b8bd88b)    
+Lint-fix  
+Related issues:
+### Chores
+
+
+* **App:** Updated workflows | MP | [9a71ac0964bfb761cec4d770cd510eda46067e4a](https://github.com/admiralcloud/ac-logger/commit/9a71ac0964bfb761cec4d770cd510eda46067e4a)    
+Updated workflows  
+Related issues:
+## BREAKING CHANGES
+* **Misc:** Requires Node 22+
 
 ## [3.0.5](https://github.com/admiralcloud/ac-logger/compare/v3.0.4..v3.0.5) (2026-04-01 08:28:30)
 
