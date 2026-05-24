@@ -16,7 +16,7 @@
     "eslint": "^10.4.0",
     "globals": "^17.6.0",
     "intercept-stdout": "^0.1.2",
-    "mocha": "^11.7.5"
+    "mocha": "^11.7.6"
   },
   "scripts": {
     "test": "mocha --reporter spec"
