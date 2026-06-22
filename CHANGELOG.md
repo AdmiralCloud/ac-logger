@@ -1,3 +1,17 @@
+## [4.0.5](https://github.com/admiralcloud/ac-logger/compare/v4.0.4..v4.0.5) (2026-06-22 15:08:36)
+
+
+### Bug Fix
+
+
+* **App:** Package updates | MP | [9b9626a67dc39c4cf8196bfd186b592e830cc948](https://github.com/admiralcloud/ac-logger/commit/9b9626a67dc39c4cf8196bfd186b592e830cc948)    
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+### Tests
+
+
+* **App:** Added more test | MP | [692a207e0ec17a688efc2c929d08ac95b2249223](https://github.com/admiralcloud/ac-logger/commit/692a207e0ec17a688efc2c929d08ac95b2249223)    
+Improved test coverage  
+Related issues:
 ## [4.0.4](https://github.com/admiralcloud/ac-logger/compare/v4.0.3..v4.0.4) (2026-05-24 05:33:52)
 
 
